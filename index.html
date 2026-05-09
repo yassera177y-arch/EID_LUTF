@@ -3,51 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تهنئة يوم التمريض - جامعة جازان</title>
+    <title>تهنئة تخرج كلية التمريض</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .setup-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
-        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 10px; font-size: 16px; text-align: center; outline: none; }
-        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        #final-card { display: none; position: relative; width: 100%; max-width: 500px; }
-        .bg-image { width: 100%; display: block; border-radius: 10px; }
-        #user-name {
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .input-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        input { width: 80%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 8px; font-size: 16px; text-align: center; }
+        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
+        
+        /* حاوية البطاقة */
+        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; }
+        .bg-img { width: 100%; display: block; }
+        
+        /* ضبط موقع الاسم بالضبط فوق المستطيل الرمادي */
+        #user-name-overlay {
             position: absolute;
-            top: 38.8%; /* هذا يضع الاسم في المستطيل الرمادي بالصورة */
+            top: 26.5%; /* تم رفعه ليناسب المربع في صورتك */
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
+            transform: translateX(-50%);
+            width: 50%;
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             color: #003a5d;
-            z-index: 10;
+            white-space: nowrap;
         }
+        .controls { display: none; text-align: center; margin-top: 20px; width: 100%; }
     </style>
 </head>
 <body>
-    <div id="start-screen" class="setup-container">
-        <h2 style="color:#005a87;">ممرض المستقبل 🩺</h2>
-        <p>أدخل اسمك لإصدار بطاقة التهنئة الخاصة بك</p>
-        <input type="text" id="userNameInput" placeholder="اكتب اسمك هنا...">
+
+    <div id="setup" class="input-box">
+        <h2 style="color:#005a87;">بطاقة تهنئة التمريض 🩺</h2>
+        <input type="text" id="nameInput" placeholder="اكتب الاسم هنا...">
         <br>
-        <button onclick="showCard()">إنشاء البطاقة</button>
+        <button onclick="generate()">عرض البطاقة</button>
     </div>
-    <div id="final-card">
-        <img src="bg.png" class="bg-image">
-        <div id="user-name"></div>
-        <button onclick="location.reload()" style="margin-top:15px; width:100%; background-color:#90caf9;">عمل بطاقة أخرى</button>
+
+    <div id="capture-area">
+        <img src="bg.png" class="bg-img">
+        <div id="user-name-overlay"></div>
     </div>
+
+    <div id="controls-area" class="controls">
+        <button onclick="downloadCard()" style="background-color: #28a745;">تحميل البطاقة (صورة)</button>
+        <button onclick="location.reload()" style="background-color: #6c757d;">اسم آخر</button>
+    </div>
+
     <script>
-        function showCard() {
-            const name = document.getElementById('userNameInput').value;
+        function generate() {
+            const name = document.getElementById('nameInput').value;
             if(name.trim() !== "") {
-                document.getElementById('start-screen').style.display = 'none';
-                document.getElementById('final-card').style.display = 'block';
-                document.getElementById('user-name').innerText = name;
+                document.getElementById('setup').style.display = 'none';
+                document.getElementById('capture-area').style.display = 'block';
+                document.getElementById('controls-area').style.display = 'block';
+                document.getElementById('user-name-overlay').innerText = name;
             } else {
-                alert("لطفاً اكتب اسمك");
+                alert("يرجى إدخال الاسم");
             }
+        }
+
+        function downloadCard() {
+            const card = document.getElementById('capture-area');
+            html2canvas(card, { useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'nursing-congrats.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
         }
     </script>
 </body>
