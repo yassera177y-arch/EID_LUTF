@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة يوم التمريض - جامعة جازان</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .setup-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 10px; font-size: 16px; text-align: center; outline: none; }
+        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        #final-card { display: none; position: relative; width: 100%; max-width: 500px; }
+        .bg-image { width: 100%; display: block; border-radius: 10px; }
+        #user-name {
+            position: absolute;
+            top: 38.8%; /* هذا يضع الاسم في المستطيل الرمادي بالصورة */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #003a5d;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="start-screen" class="setup-container">
+        <h2 style="color:#005a87;">ممرض المستقبل 🩺</h2>
+        <p>أدخل اسمك لإصدار بطاقة التهنئة الخاصة بك</p>
+        <input type="text" id="userNameInput" placeholder="اكتب اسمك هنا...">
+        <br>
+        <button onclick="showCard()">إنشاء البطاقة</button>
+    </div>
+    <div id="final-card">
+        <img src="bg.png" class="bg-image">
+        <div id="user-name"></div>
+        <button onclick="location.reload()" style="margin-top:15px; width:100%; background-color:#90caf9;">عمل بطاقة أخرى</button>
+    </div>
+    <script>
+        function showCard() {
+            const name = document.getElementById('userNameInput').value;
+            if(name.trim() !== "") {
+                document.getElementById('start-screen').style.display = 'none';
+                document.getElementById('final-card').style.display = 'block';
+                document.getElementById('user-name').innerText = name;
+            } else {
+                alert("لطفاً اكتب اسمك");
+            }
+        }
+    </script>
+</body>
+</html>
