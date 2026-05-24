@@ -3,46 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تهنئة عيد الأضحى - فريق لطف التطوعي</title>
+    <title>تهنئة فريق لطف</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .input-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
-        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
-        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
+        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #013441; border-radius: 8px; font-size: 16px; text-align: center; }
+        button { background-color: #013441; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
         
-        /* حاوية البطاقة والصورة */
-        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; overflow: hidden; border-radius: 10px; }
-        .bg-img { width: 100%; display: block; }
+        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; }
+        .bg-img { width: 100%; display: block; border-radius: 10px; }
         
-        /* ضبط موقع الاسم بالضبط في المكان المفرغ بالأسفل لتصميم فريق لطف */
-        /* التعديل: حجم الخط أصغر (18px) واللون أسود تماماً (#000000) */
+        /* إجبار اللون الأسود والخط الصغير بقوة البرمجة */
         #user-name-overlay {
-            position: absolute;
-            top: 70.2%; /* تم وزنه بدقة ليكون داخل المربع تماماً */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 45%;
-            text-align: center;
-            font-size: 18px; /* تم تصغير حجم الخط */
-            font-weight: bold;
-            color: #000000; /* تم تغيير اللون ليكون أسود تماماً */
-            white-space: nowrap;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute !important;
+            top: 70.2% !important; 
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: 45% !important;
+            text-align: center !important;
+            font-size: 15px !important; /* حجم صغير جداً وناعم */
+            font-weight: bold !important;
+            color: #000000 !important; /* أسود فاحم صريح */
+            white-space: nowrap !important;
+            z-index: 999 !important;
         }
-        .controls { display: none; text-align: center; margin-top: 20px; width: 100%; }
+        .controls { display: none; text-align: center; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <div id="setup" class="input-box">
-        <h2 style="color:#005a87;">بطاقة تهنئة رقمية 🌙</h2>
-        <p>أدخل الاسم المراد طباعته على بطاقة فريق لطف</p>
+        <h2 style="color:#013441;">معايدة عيد الأضحى 🌙</h2>
         <input type="text" id="nameInput" placeholder="اكتب الاسم هنا...">
-        <br>
+        <br><br>
         <button onclick="generate()">عرض البطاقة</button>
     </div>
 
@@ -52,8 +46,8 @@
     </div>
 
     <div id="controls-area" class="controls">
-        <button onclick="downloadCard()" style="background-color: #28a745;">تحميل البطاقة (صورة)</button>
-        <button onclick="location.reload()" style="background-color: #6c757d;">إنشاء بطاقة أخرى</button>
+        <button onclick="downloadCard()" style="background-color: #28a745;">تحميل البطاقة</button>
+        <button onclick="location.reload()" style="background-color: #6c757d;">اسم آخر</button>
     </div>
 
     <script>
@@ -64,24 +58,18 @@
                 document.getElementById('capture-area').style.display = 'block';
                 document.getElementById('controls-area').style.display = 'block';
                 document.getElementById('user-name-overlay').innerText = name;
-            } else {
-                alert("يرجى إدخال الاسم أولاً");
             }
         }
 
         function downloadCard() {
             const card = document.getElementById('capture-area');
-            const nameOverlay = document.getElementById('user-name-overlay');
-            
-            // ضبط جودة التحميل وتأكيد تطبيق الأنماط على الصورة المنشأة
             html2canvas(card, { 
                 useCORS: true, 
-                scale: 3, // دقة عالية
+                scale: 3,
                 onclone: (clonedDoc) => {
-                    // تأكيد أن الاسم في الصورة المنشأة يتبع نفس الأنماط
                     const clonedName = clonedDoc.getElementById('user-name-overlay');
-                    clonedName.style.fontSize = '18px';
-                    clonedName.style.color = '#000000';
+                    clonedName.style.setProperty('font-size', '15px', 'important');
+                    clonedName.style.setProperty('color', '#000000', 'important');
                 }
             }).then(canvas => {
                 const link = document.createElement('a');
