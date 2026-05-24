@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تهنئة تخرج كلية التمريض</title>
+    <title>تهنئة عيد الأضحى - فريق لطف التطوعي</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
         .input-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
-        input { width: 80%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 8px; font-size: 16px; text-align: center; }
-        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
+        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #013441; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
+        button { background-color: #013441; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
         
-        /* حاوية البطاقة */
-        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; }
-        .bg-img { width: 100%; display: block; }
+        /* حاوية البطاقة والصورة */
+        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; }
+        .bg-img { width: 100%; display: block; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* ضبط موقع الاسم بالضبط فوق المستطيل الرمادي */
+        /* ضبط موقع الاسم بالضبط داخل المربع المفرغ بالأسفل لتصميم فريق لطف */
         #user-name-overlay {
             position: absolute;
-            top: 26.5%; /* تم رفعه ليناسب المربع في صورتك */
+            top: 70.2%; /* تم وزنه بدقة ليكون داخل المربع تماماً */
             left: 50%;
-            transform: translateX(-50%);
-            width: 50%;
+            transform: translate(-50%, -50%);
+            width: 45%;
             text-align: center;
-            font-size: 20px;
+            font-size: 22px; 
             font-weight: bold;
-            color: #003a5d;
+            color: #013441; /* لون كحلي داكن يطابق خطوط التصميم */
             white-space: nowrap;
         }
         .controls { display: none; text-align: center; margin-top: 20px; width: 100%; }
@@ -34,7 +34,8 @@
 <body>
 
     <div id="setup" class="input-box">
-        <h2 style="color:#005a87;">بطاقة تهنئة التمريض 🩺</h2>
+        <h2 style="color:#013441;">معايدة عيد الأضحى 🌙</h2>
+        <p>فريق لطف التطوعي - أدخل اسمك لإصدار البطاقة</p>
         <input type="text" id="nameInput" placeholder="اكتب الاسم هنا...">
         <br>
         <button onclick="generate()">عرض البطاقة</button>
@@ -47,7 +48,7 @@
 
     <div id="controls-area" class="controls">
         <button onclick="downloadCard()" style="background-color: #28a745;">تحميل البطاقة (صورة)</button>
-        <button onclick="location.reload()" style="background-color: #6c757d;">اسم آخر</button>
+        <button onclick="location.reload()" style="background-color: #6c757d;">إنشاء بطاقة أخرى</button>
     </div>
 
     <script>
@@ -59,16 +60,16 @@
                 document.getElementById('controls-area').style.display = 'block';
                 document.getElementById('user-name-overlay').innerText = name;
             } else {
-                alert("يرجى إدخال الاسم");
+                alert("يرجى إدخال الاسم أولاً");
             }
         }
 
         function downloadCard() {
             const card = document.getElementById('capture-area');
-            html2canvas(card, { useCORS: true }).then(canvas => {
+            html2canvas(card, { useCORS: true, scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'nursing-congrats.png';
-                link.href = canvas.toDataURL();
+                link.download = 'lutf-eid-card.png';
+                link.href = canvas.toDataURL('image/png');
                 link.click();
             });
         }
