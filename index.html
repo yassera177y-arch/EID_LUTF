@@ -8,24 +8,24 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 10px; }
         .input-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
-        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #013441; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
-        button { background-color: #013441; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
+        input { width: 85%; padding: 12px; margin: 20px 0; border: 2px solid #005a87; border-radius: 8px; font-size: 16px; text-align: center; outline: none; }
+        button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
         
         /* حاوية البطاقة والصورة */
         #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; }
         .bg-img { width: 100%; display: block; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         
-        /* ضبط موقع الاسم بالضبط داخل المربع المفرغ بالأسفل لتصميم فريق لطف */
+        /* ضبط موقع الاسم بالضبط في المكان المفرغ بالأسفل (المربع الأبيض) */
         #user-name-overlay {
             position: absolute;
-            top: 70.2%; /* تم وزنه بدقة ليكون داخل المربع تماماً */
+            top: 73%; /* تم وزنه بدقة ليكون في المربع تماماً */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 45%;
+            width: 70%;
             text-align: center;
-            font-size: 22px; 
+            font-size: 19px; /* تم تصغير الخط قليلاً بناءً على طلبك */
             font-weight: bold;
-            color: #013441; /* لون كحلي داكن يطابق خطوط التصميم */
+            color: #000000; /* تم تغيير اللون ليكون أسود تماماً */
             white-space: nowrap;
         }
         .controls { display: none; text-align: center; margin-top: 20px; width: 100%; }
@@ -34,8 +34,8 @@
 <body>
 
     <div id="setup" class="input-box">
-        <h2 style="color:#013441;">معايدة عيد الأضحى 🌙</h2>
-        <p>فريق لطف التطوعي - أدخل اسمك لإصدار البطاقة</p>
+        <h2 style="color:#005a87;">بطاقة تهنئة رقمية 🌙</h2>
+        <p>أدخل الاسم المراد طباعته على بطاقة فريق لطف</p>
         <input type="text" id="nameInput" placeholder="اكتب الاسم هنا...">
         <br>
         <button onclick="generate()">عرض البطاقة</button>
@@ -66,9 +66,10 @@
 
         function downloadCard() {
             const card = document.getElementById('capture-area');
+            // تحويل البطاقة والاسم المدمج عليها إلى صورة حقيقية تحفظ في جهازك بجودة عالية
             html2canvas(card, { useCORS: true, scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'lutf-eid-card.png';
+                link.download = 'nursing-congrats-card.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
