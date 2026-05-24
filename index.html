@@ -12,21 +12,26 @@
         button { background-color: #005a87; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin: 5px; }
         
         /* حاوية البطاقة والصورة */
-        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; }
-        .bg-img { width: 100%; display: block; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #capture-area { position: relative; width: 100%; max-width: 500px; display: none; margin: 0 auto; overflow: hidden; border-radius: 10px; }
+        .bg-img { width: 100%; display: block; }
         
-        /* ضبط موقع الاسم بالضبط في المكان المفرغ بالأسفل (المربع الأبيض) */
+        /* ضبط موقع الاسم بالضبط في المكان المفرغ بالأسفل لتصميم فريق لطف */
+        /* التعديل: حجم الخط أصغر (18px) واللون أسود تماماً (#000000) */
         #user-name-overlay {
             position: absolute;
-            top: 73%; /* تم وزنه بدقة ليكون في المربع تماماً */
+            top: 70.2%; /* تم وزنه بدقة ليكون داخل المربع تماماً */
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70%;
+            width: 45%;
             text-align: center;
-            font-size: 19px; /* تم تصغير الخط قليلاً بناءً على طلبك */
+            font-size: 18px; /* تم تصغير حجم الخط */
             font-weight: bold;
             color: #000000; /* تم تغيير اللون ليكون أسود تماماً */
             white-space: nowrap;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .controls { display: none; text-align: center; margin-top: 20px; width: 100%; }
     </style>
@@ -66,10 +71,21 @@
 
         function downloadCard() {
             const card = document.getElementById('capture-area');
-            // تحويل البطاقة والاسم المدمج عليها إلى صورة حقيقية تحفظ في جهازك بجودة عالية
-            html2canvas(card, { useCORS: true, scale: 3 }).then(canvas => {
+            const nameOverlay = document.getElementById('user-name-overlay');
+            
+            // ضبط جودة التحميل وتأكيد تطبيق الأنماط على الصورة المنشأة
+            html2canvas(card, { 
+                useCORS: true, 
+                scale: 3, // دقة عالية
+                onclone: (clonedDoc) => {
+                    // تأكيد أن الاسم في الصورة المنشأة يتبع نفس الأنماط
+                    const clonedName = clonedDoc.getElementById('user-name-overlay');
+                    clonedName.style.fontSize = '18px';
+                    clonedName.style.color = '#000000';
+                }
+            }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'nursing-congrats-card.png';
+                link.download = 'lutf-eid-card.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
